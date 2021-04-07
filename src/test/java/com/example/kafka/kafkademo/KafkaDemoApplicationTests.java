@@ -1,13 +1,34 @@
 package com.example.kafka.kafkademo;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.example.kafka.kafkademo.repository.KafkaDummyRepository;
+
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class KafkaDemoApplicationTests {
+public class KafkaDemoApplicationTests {
+	
+	@Mock
+	private KafkaDummyRepository repository;
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
+	
+	@Test
+	public void testPostMessage() {
+		String message = "Hello from JUnit";
+		Mockito.when(repository.postMessage(message)).thenReturn("Message sent");
+		assertEquals("Message sent", repository.postMessage(message));
+		
+	}
+
 
 }

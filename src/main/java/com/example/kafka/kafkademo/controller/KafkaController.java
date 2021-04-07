@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.kafka.kafkademo.repository.KafkaDummyRepository;
+
 /**
  * @author abdare
  *
@@ -18,15 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaController {
 	
 	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaDummyRepository repository;
 	
 	
 	@PostMapping("/postMessage")
 	public String postMessage(@RequestBody String message) {
 		
-		kafkaTemplate.send("topic0",message);
-		
-		return "Message sent";
+		return repository.postMessage(message);
 	}
 
 }
